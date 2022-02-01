@@ -1,8 +1,9 @@
 <html lang="en">
 <head>
     {{ include('resource_include/bootstrap_css.twig') }}
-    {{ include('resource_include/custom_css.twig') }}
     {{ include('resource_include/bootstrap_js.twig') }}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
     <title>php-dry</title>
 </head>
 <body>

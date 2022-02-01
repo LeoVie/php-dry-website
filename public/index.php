@@ -1,16 +1,9 @@
 <?php
-declare(strict_types=1);
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use App\Kernel;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
-$loader = new FilesystemLoader(__DIR__ . '/../template/');
-$twig = new Environment($loader, [
-    // 'cache' => __DIR__ . '/../cache/compilation/',
-    'cache' => false,
-]);
-
-$template = $twig->load('index.twig');
-echo $template->render();
+return function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};
