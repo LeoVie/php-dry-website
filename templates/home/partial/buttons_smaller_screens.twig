@@ -1,0 +1,22 @@
+<div class="row d-md-none d-lg-none d-xl-none">
+    <div class="offset-sm-1 col-sm-10 offset-1 col-10 justify-content-center">
+        <div class="d-grid gap-2">
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Getting Started',
+                'href': '/getting-started'
+            }) }}
+            {{ include('partial/primary_link_external.twig', {
+                'caption': 'GitHub',
+                'href': 'https://github.com/leovie/php-dry'
+            }) }}
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Documentation',
+                'href': '/docs'
+            }) }}
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Blog',
+                'href': '/blog'
+            }) }}
+        </div>
+    </div>
+</div>

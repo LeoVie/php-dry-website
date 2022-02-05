@@ -8,38 +8,14 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto text-center">
+    <div class="row justify-content-center">
+        <div class="col-auto text-center">
             <h1 class="display-1">php-dry</h1>
             <h2>Semantic Clone Detection for PHP</h2>
         </div>
     </div>
-    <div class="row">
-        <div class="offset-md-4 col-md-2 justify-content-md-center">
-            <div class="d-grid gap-2">
-                {{ include('partial/primary_link_internal.twig', {
-                    'caption': 'Getting Started',
-                    'href': '/getting-started'
-                }) }}
-                {{ include('partial/primary_link_external.twig', {
-                    'caption': 'GitHub',
-                    'href': 'https://github.com/leovie/php-dry'
-                }) }}
-            </div>
-        </div>
-        <div class="col-md-2 justify-content-md-center">
-            <div class="d-grid gap-2">
-                {{ include('partial/primary_link_internal.twig', {
-                    'caption': 'Documentation',
-                    'href': '/docs'
-                }) }}
-                {{ include('partial/primary_link_internal.twig', {
-                    'caption': 'Blog',
-                    'href': '/blog'
-                }) }}
-            </div>
-        </div>
-    </div>
+    {{ include('home/partial/buttons_larger_screens.twig') }}
+    {{ include('home/partial/buttons_smaller_screens.twig') }}
     <div class="row">
         <div class="col text-center">
             <p>Latest version: <span class="font-monospace">1.0.0</span></p>
@@ -61,8 +37,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="offset-md-5 col-md-2 offset-sm-5 col-sm-2 offset-4 col-4">
-            <div class="offset-md-3 col-md-6 offset-sm-0 col-sm-12 offset-3 col-6">
+        <div class="offset-xl-5 col-xl-2 offset-sm-5 col-sm-2 offset-4 col-4">
+            <div class="offset-xl-3 col-xl-6 offset-sm-0 col-sm-12 offset-3 col-6">
                 <a href="https://queo.de" target="_blank">
                     {{ include('partial/queo_logo.twig') }}
                 </a>

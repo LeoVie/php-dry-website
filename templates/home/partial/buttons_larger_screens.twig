@@ -1,0 +1,26 @@
+<div class="row d-none d-sm-none d-md-flex d-lg-flex d-xl-flex">
+    <div class="offset-xl-4 col-xl-2 offset-lg-3 col-lg-3 offset-md-3 col-md-3 justify-content-center">
+        <div class="d-grid gap-2">
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Getting Started',
+                'href': '/getting-started'
+            }) }}
+            {{ include('partial/primary_link_external.twig', {
+                'caption': 'GitHub',
+                'href': 'https://github.com/leovie/php-dry'
+            }) }}
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3 justify-content-center">
+        <div class="d-grid gap-2">
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Documentation',
+                'href': '/docs'
+            }) }}
+            {{ include('partial/primary_link_internal.twig', {
+                'caption': 'Blog',
+                'href': '/blog'
+            }) }}
+        </div>
+    </div>
+</div>
