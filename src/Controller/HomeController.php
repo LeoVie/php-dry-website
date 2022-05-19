@@ -25,7 +25,7 @@ class HomeController extends AbstractController
         return $this->render(
             'home/index.twig',
             [
-                'current_version_number' => $this->currentVersionNumberService->getFromPackagist(),
+                'current_version_number' => '1.5.1' /* $this->currentVersionNumberService->getFromPackagist() */,
             ]
         );
     }
