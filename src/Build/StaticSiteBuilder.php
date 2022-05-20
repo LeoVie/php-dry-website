@@ -46,7 +46,7 @@ class StaticSiteBuilder
     {
         $client = new Client(['base_uri' => 'http://web']);
 
-        $hrefPattern = '@href="(.+?)"@';
+        $hrefPattern = '@(?>href|src)="(.+?)"@';
 
         preg_match_all($hrefPattern, $content, $matches);
 
