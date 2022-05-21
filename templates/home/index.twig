@@ -5,6 +5,7 @@
     {{ encore_entry_link_tags('app') }}
     {{ encore_entry_script_tags('app') }}
     <title>php-dry</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
 <div class="container-fluid">
@@ -16,7 +17,7 @@
     </div>
     {{ include('home/partial/buttons_larger_screens.twig') }}
     {{ include('home/partial/buttons_smaller_screens.twig') }}
-    <div class="row">
+    <div class="row" id="current-version-number">
         <div class="col text-center">
             <p>Latest version: <span class="font-monospace">{{ current_version_number }}</span></p>
         </div>
