@@ -129,5 +129,6 @@ start:
 
 .PHONY: build_static_site
 build_static_site:
+	npm run build
 	chmod +x ./scripts/build-static-site.sh
 	./scripts/build-static-site.sh
