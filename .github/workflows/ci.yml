@@ -41,4 +41,5 @@ jobs:
       - name: Deploy website
         run: |
           sudo apt install sshpass
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o user=${{ secrets.SSH_USERNAME }}@php-dry.org BUILD_NAME ssh.strato.de:.
+          cd builds/$(ls ./builds | sort -r | head -n 1)
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r -o user=${{ secrets.SSH_USERNAME }}@php-dry.org ./* ssh.strato.de:.
