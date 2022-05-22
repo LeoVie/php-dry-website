@@ -43,6 +43,6 @@ jobs:
         run: make build_static_site
       - name: Deploy website
         run: |
-          cd builds/$(ls ./builds | sort -r | head -n 1)
-          echo "Deploying $(ls ./builds | sort -r | head -n 1)"
+          cd ${{ github.workspace }}/builds/$(ls ${{ github.workspace }}/builds | sort -r | head -n 1)
+          echo "Deploying $(ls ${{ github.workspace }}/builds | sort -r | head -n 1)"
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r -o user=${{ secrets.SSH_USERNAME }}@php-dry.org ./* ssh.strato.de:.
