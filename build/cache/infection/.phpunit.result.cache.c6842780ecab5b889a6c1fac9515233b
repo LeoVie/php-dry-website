@@ -1,0 +1,1 @@
+{"version":1,"defects":{"App\\Tests\\Unit\\Service\\CurrentVersionNumberServiceTest::testGetFromPackagist":4},"times":{"App\\Tests\\Unit\\Service\\CurrentVersionNumberServiceTest::testGetFromPackagist":0.006}}

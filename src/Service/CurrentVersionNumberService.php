@@ -4,16 +4,23 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 class CurrentVersionNumberService
 {
+    const PACKAGIST_API_ENDPOINT = 'leovie/php-dry.json';
+
+    public function __construct(
+        private ClientInterface $packagistClient
+    )
+    {
+    }
+
     public function getFromPackagist(): string
     {
-        $client = new Client(['base_uri' => 'https://repo.packagist.org/p2/']);
+        $response = $this->packagistClient->request('GET', self::PACKAGIST_API_ENDPOINT);
 
-        $response = $client->request('GET', 'leovie/php-dry.json');
-
+        /** @var array{'packages': array{'leovie/php-dry': array{0: array{'version': string}}}} $responseData */
         $responseData = \Safe\json_decode($response->getBody()->getContents(), true);
 
         $version = $responseData['packages']['leovie/php-dry'][0]['version'];

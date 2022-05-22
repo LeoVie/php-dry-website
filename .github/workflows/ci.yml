@@ -1,0 +1,42 @@
+name: CI Pipeline
+on: [ push ]
+jobs:
+  Test:
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-latest ]
+        php-version: [ '8.0' ]
+        include:
+          - { operating-system: 'ubuntu-latest', php-version: '8.0'}
+          - { operating-system: 'ubuntu-latest', php-version: '8.1'}
+
+    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: "Check out repository code"
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: "Install requirements"
+        run: |
+          make setup_test_environment php_version=${{ matrix.php-version }}
+      - name: "Static Analysis"
+        run: |
+          make phpstan
+          make psalm
+      - name: "Unit Testing"
+        run: |
+          make unit
+      - name: "Functional Testing"
+        run: |
+          make functional
+      - name: "Mutation Testing"
+        run: |
+          make infection

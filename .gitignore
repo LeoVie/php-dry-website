@@ -22,3 +22,7 @@ yarn-error.log
 
 builds/*
 !builds/.gitkeep
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
