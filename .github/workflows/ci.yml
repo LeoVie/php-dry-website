@@ -2,15 +2,8 @@ name: CI Pipeline
 on: [ push ]
 jobs:
   Test:
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: [ ubuntu-latest ]
-        php-version: [ '8.0' ]
-        include:
-          - { operating-system: 'ubuntu-latest', php-version: '8.0'}
-          - { operating-system: 'ubuntu-latest', php-version: '8.1'}
-    name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
+    name: CI on ubuntu-latest with PHP 8.1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -20,9 +13,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: "Install requirements"
+      - name: "Setup environment"
         run: |
-          make setup_test_environment php_version=${{ matrix.php-version }}
+          make setup_test_environment php_version=8.1
       - name: "Static Analysis"
         run: |
           make phpstan
@@ -38,11 +31,18 @@ jobs:
     needs: Test
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: "Check out repository code"
+        uses: actions/checkout@v3
+      - name: Install linux dependencies
+        run: sudo apt install sshpass
+      - name: Setup environment
+        run: make setup_prod_environment php_version=8.1
+      - name: Start application
+        run: make start
+      - name: Build static site
+        run: make build_static_site
       - name: Deploy website
         run: |
-          make start
-          make build_static_site
-          sudo apt install sshpass
           cd builds/$(ls ./builds | sort -r | head -n 1)
           echo "Deploying $(ls ./builds | sort -r | head -n 1)"
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r -o user=${{ secrets.SSH_USERNAME }}@php-dry.org ./* ssh.strato.de:.
