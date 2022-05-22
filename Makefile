@@ -129,4 +129,4 @@ start:
 
 .PHONY: build_static_site
 build_static_site:
-	docker-compose exec app ./bin/console app:build-static-site
+	docker-compose exec -T app ./bin/console app:build-static-site
