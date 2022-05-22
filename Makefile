@@ -129,4 +129,5 @@ start:
 
 .PHONY: build_static_site
 build_static_site:
-	docker-compose exec -T app ./bin/console app:build-static-site
+	chmod +x ./scripts/build-static-site.sh
+	./scripts/build-static-site.sh
