@@ -15,6 +15,15 @@ endif
 	make setup_ci_images php_version=$(php_version)
 	make install
 
+.PHONY: setup_prod_environment
+setup_prod_environment:
+ifndef php_version
+	$(error php_version is not set)
+endif
+	make setup_env env=prod
+	make setup_ci_images php_version=$(php_version)
+	make install
+
 .PHONY: setup_ci_images
 setup_ci_images:
 ifndef php_version
