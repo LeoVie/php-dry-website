@@ -23,3 +23,13 @@ yarn-error.log
 builds/*
 !builds/.gitkeep
 
+#
+# Test Output
+#
+/build/cache/*
+!build/cache/.gitkeep
+/build/config/base/*
+!build/config/base/.gitkeep
+/build/coverage/
+/build/logs/*
+.phpunit.result.cache
