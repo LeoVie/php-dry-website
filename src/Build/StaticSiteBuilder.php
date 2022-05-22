@@ -37,6 +37,8 @@ class StaticSiteBuilder
         $buildDir = self::BUILDS_DIR . $buildName . '/';
         \Safe\mkdir($buildDir);
 
+        \Safe\file_put_contents($buildDir . 'BUILD_NAME', $buildName);
+
         foreach (self::ROUTES as $route => $staticFilename) {
             $response = $this->webClient->request('GET', $route);
 

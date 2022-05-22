@@ -2,9 +2,7 @@ name: CI Pipeline
 on: [ push ]
 jobs:
   Test:
-
     runs-on: ${{ matrix.operating-system }}
-
     strategy:
       matrix:
         operating-system: [ ubuntu-latest ]
@@ -12,9 +10,7 @@ jobs:
         include:
           - { operating-system: 'ubuntu-latest', php-version: '8.0'}
           - { operating-system: 'ubuntu-latest', php-version: '8.1'}
-
     name: CI on ${{ matrix.operating-system }} with PHP ${{ matrix.php-version }}
-
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -37,3 +33,12 @@ jobs:
       - name: "Mutation Testing"
         run: |
           make infection
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: Test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy website
+        run: |
+          sudo apt install sshpass
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o user=${{ secrets.SSH_USERNAME }}@php-dry.org BUILD_NAME ssh.strato.de:.
