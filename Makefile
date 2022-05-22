@@ -113,3 +113,11 @@ endif
 .PHONY: infection
 infection:
 	docker run -v ${PWD}:/app --rm php-dry-website/infection:latest
+
+.PHONY: start
+start:
+	docker-compose up -d
+
+.PHONY: build_static_site
+build_static_site:
+	./bin/console app:build-static-site

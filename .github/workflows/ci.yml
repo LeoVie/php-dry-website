@@ -40,6 +40,9 @@ jobs:
     steps:
       - name: Deploy website
         run: |
+          make start
+          make build_static_site
           sudo apt install sshpass
           cd builds/$(ls ./builds | sort -r | head -n 1)
+          echo "Deploying $(ls ./builds | sort -r | head -n 1)"
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r -o user=${{ secrets.SSH_USERNAME }}@php-dry.org ./* ssh.strato.de:.
