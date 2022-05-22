@@ -11,9 +11,12 @@
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "eightpoints/guzzle-bundle": "^8.3",
         "guzzlehttp/guzzle": "^7.4",
+        "leovie/php-filesystem": "^2.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.2",
+        "roave/security-advisories": "dev-latest",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
@@ -46,13 +49,14 @@
         "symfony/yaml": "6.0.*",
         "thecodingmachine/safe": "^2.1",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^3.0"
     },
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "infection/extension-installer": true
         },
         "optimize-autoloader": true,
         "preferred-install": {
@@ -79,6 +83,16 @@
         "symfony/polyfill-php80": "*"
     },
     "scripts": {
+        "psalm": "psalm -c build/config/psalm.xml --show-info=true",
+        "phpunit": "phpunit -c build/config/phpunit.xml",
+        "infection": [
+            "Composer\\Config::disableProcessTimeout",
+            "infection --only-covered --configuration=build/config/infection.json --min-msi=97 --min-covered-msi=97 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage --testsuite=unit'"
+        ],
+        "test": [
+            "@psalm",
+            "@phpunit"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
@@ -100,9 +114,13 @@
         }
     },
     "require-dev": {
+        "infection/infection": "^0.26.10",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-symfony": "^3.1",
         "symfony/debug-bundle": "6.0.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/stopwatch": "6.0.*",
-        "symfony/web-profiler-bundle": "6.0.*"
+        "symfony/web-profiler-bundle": "6.0.*",
+        "vimeo/psalm": "^4.23"
     }
 }

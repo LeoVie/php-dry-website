@@ -1,0 +1,23 @@
+# EightPoints GuzzleBundle
+# A full list of configuration options can be found here:
+# https://github.com/8p/EightPointsGuzzleBundle/blob/master/src/Resources/doc/configuration-reference.md
+eight_points_guzzle:
+    clients:
+        packagist:
+            # Write here the host where to do requests
+            base_url: "https://repo.packagist.org/p2/"
+            # Request options: http://docs.guzzlephp.org/en/stable/request-options.html
+            options:
+                # timeout in seconds
+                timeout: 30
+                # set to false to disable throwing exceptions on an HTTP protocol errors (4xx and 5xx responses)
+                http_errors: true
+        web:
+            # Write here the host where to do requests
+            base_url: "http://web"
+            # Request options: http://docs.guzzlephp.org/en/stable/request-options.html
+            options:
+                # timeout in seconds
+                timeout: 30
+                # set to false to disable throwing exceptions on an HTTP protocol errors (4xx and 5xx responses)
+                http_errors: true
