@@ -33,10 +33,7 @@ jobs:
           make psalm
       - name: "Unit Testing"
         run: |
-          make unit
-      - name: "Functional Testing"
-        run: |
-          make functional
+          make phpunit
       - name: "Mutation Testing"
         run: |
           make infection
