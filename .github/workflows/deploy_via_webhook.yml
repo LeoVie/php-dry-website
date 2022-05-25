@@ -1,0 +1,9 @@
+on:
+  repository_dispatch:
+    types: [deploy_website]
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
