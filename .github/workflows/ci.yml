@@ -27,27 +27,6 @@ jobs:
         run: |
           make infection
   Deploy:
-    runs-on: ubuntu-latest
-    needs: Test
     if: github.ref == 'refs/heads/main'
-    steps:
-      - name: "Check out repository code"
-        uses: actions/checkout@v3
-      - name: Setup environment
-        run: make setup_prod_environment php_version=8.1
-      - name: Start application
-        run: make start
-      - name: Build static site
-        run: make build_static_site
-      - name: Deploy website
-        run: |
-          cp -R ${{ github.workspace }}/builds/$(ls ${{ github.workspace }}/builds | sort -r | head -n 1) ${{ github.workspace }}/builds/latest
-      - name: Deploy via SFTP
-        uses: wangyucode/sftp-upload-action@v1.3.2
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          username: ${{ secrets.SSH_USERNAME }}
-          localDir: 'builds/latest'
-          remoteDir: '/website'
-          forceUpload: true
+    needs: Test
+    uses: ./.github/workflows/deploy.yml
