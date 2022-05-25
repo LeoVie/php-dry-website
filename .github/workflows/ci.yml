@@ -28,4 +28,5 @@ jobs:
           make infection
   Deploy:
     if: github.ref == 'refs/heads/main'
+    needs: Test
     uses: ./.github/workflows/deploy.yml
