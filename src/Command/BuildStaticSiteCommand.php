@@ -22,7 +22,7 @@ class BuildStaticSiteCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            $this->staticSiteBuilder->build();
+            $output->writeln($this->staticSiteBuilder->build());
         } catch (\Exception $e) {
             $output->writeln('Error');
             $output->writeln($e->getMessage());

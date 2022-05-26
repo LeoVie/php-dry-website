@@ -13,3 +13,21 @@ body {
 #current-version-number {
     margin-top: 16px;
 }
+
+.buffer-row {
+    margin-top: 1em;
+}
+
+#header-logo {
+    height: 40px;
+}
+
+#header-logo-link {
+    text-decoration: none;
+    color: black;
+}
+
+#header-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+}

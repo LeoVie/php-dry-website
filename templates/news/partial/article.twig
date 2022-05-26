@@ -1,0 +1,11 @@
+<div class="buffer-row"></div>
+<div class="row">
+    <div class="offset-xl-1 col-xl-10 offset-lg-1 col-lg-10 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                {{ article.metadata.date }} - {{ article.metadata.title }}
+                {{ include(article.path) }}
+            </div>
+        </div>
+    </div>
+</div>

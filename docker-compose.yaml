@@ -18,3 +18,13 @@ services:
       - ./:/var/www
     ports:
       - "8080:80"
+  static_site:
+    container_name: php_dry_website_static_site
+    build:
+      context: ./infrastructure/
+      dockerfile: static_site.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./builds/latest:/var/www
+    ports:
+      - "8081:80"
