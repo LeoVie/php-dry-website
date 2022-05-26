@@ -11,6 +11,8 @@ jobs:
         run: make setup_prod_environment php_version=8.1
       - name: Start application
         run: make start
+      - name: Convert news articles
+        run: make convert_news_articles
       - name: Build static site
         run: make build_static_site
       - name: Deploy website
