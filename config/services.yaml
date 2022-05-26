@@ -22,3 +22,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\NewsController:
+        arguments:
+            $renderedNewsArticlesPath: '%kernel.project_dir%/news_articles/rendered'
+
+    App\Build\StaticSiteBuilder:
+        arguments:
+            $routesToStaticFilesMapping:
+              /: 'index.html'
+              /news: 'news.html'

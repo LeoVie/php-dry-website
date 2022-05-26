@@ -1,0 +1,100 @@
+<h1 id="theoretical-background">Theoretical background</h1>
+<p>(Practically) every application source code contains clones. A clone
+has multiple clone instances, which are similar logic at different
+locations in the source code.</p>
+<p>The existence of clones breaks the <a
+href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY
+principle</a> and increases the effort for testing and maintaining the
+application. Another disadvantage of having many clones in your
+application is that there is more code that you or other contributors
+have to read and understand.</p>
+<h2 id="types-of-clones">Types of clones</h2>
+<p>There are four different types of clones.</p>
+<h3 id="type-1-clones">Type-1 clones</h3>
+<p>Instances of a type-1 clone can differ in comments, spaces and
+layout.</p>
+<p>Example: The following two functions are instances of a type-1
+clone.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsEven(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isEven</span> <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isEven</span><span class="ot">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsEven(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Use modulo to check if number is</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// dividable by 2</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isEven</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isEven</span><span class="ot">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="type-2-clones">Type-2 clones</h3>
+<p>Instances of a type-2 clone have all characteristics of type-1 clones
+and can additionally differ in the names of identifiers and in
+literals.</p>
+<p>Example: The following two functions are instances of a type-2
+clone.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsEven(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isEven</span> <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isEven</span><span class="ot">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsNotOdd(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Use modulo to check if number is</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// dividable by 2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isNotOdd</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isNotOdd</span><span class="ot">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="type-3-clones">Type-3 clones</h3>
+<p>Instances of a type-3 clone have all characteristics of type-2
+clones. Furthermore, there can be added or removed statements in one of
+the clone instances.</p>
+<p>Example: The following two functions are instances of a type-3
+clone.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsEven(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isEven</span> <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isEven</span><span class="ot">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsNotOdd(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Use modulo to check if number is</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// dividable by 2</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isNotOdd</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">print</span>(<span class="va">$isNotOdd</span>)<span class="ot">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isNotOdd</span><span class="ot">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="type-4-clones">Type-4 clones</h3>
+<p>Instances of a type-4 clone can differ completely in their syntax.
+Only the semantic has to stay the same between the clone instances.</p>
+<p>Example: The following two functions are instances of a type-4
+clone.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> numberIsEven(<span class="dt">int</span> <span class="va">$number</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$isEven</span> <span class="op">=</span> (<span class="va">$number</span> <span class="op">%</span> <span class="dv">2</span>) <span class="op">===</span> <span class="dv">0</span><span class="ot">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$isEven</span><span class="ot">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> isNumberValid(<span class="dt">int</span> <span class="va">$a</span>)<span class="ot">:</span> <span class="dt">bool</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">$half</span> <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">$a</span><span class="ot">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">floor</span>(<span class="va">$half</span>) <span class="op">===</span> <span class="fu">ceil</span>(<span class="va">$half</span>)<span class="ot">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>

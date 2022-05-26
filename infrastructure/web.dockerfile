@@ -1,3 +1,5 @@
 FROM nginx:1.17
 
-ADD vhost.conf /etc/nginx/conf.d/default.conf
+ADD vhost_web.conf /etc/nginx/conf.d/default.conf
+
+RUN usermod -u 1000 www-data

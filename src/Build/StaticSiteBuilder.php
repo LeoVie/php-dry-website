@@ -13,13 +13,12 @@ class StaticSiteBuilder
 {
     private const BUILDS_DIR = __DIR__ . '/../../builds/';
 
-    private const ROUTES = [
-        '/' => 'index.html'
-    ];
-
+    /** @param array<string, string> $routesToStaticFilesMapping */
     public function __construct(
         private FilesystemService $filesystemService,
-        private ClientInterface $webClient
+        private ClientInterface   $webClient,
+        /** @var array<string, string> */
+        private array             $routesToStaticFilesMapping,
     )
     {
     }
@@ -28,56 +27,82 @@ class StaticSiteBuilder
      * @throws FilesystemException
      * @throws GuzzleException
      */
-    public function build(): void
+    public function build(): string
     {
         $originalEnv = \Safe\file_get_contents(__DIR__ . '/../../.env');
         \Safe\copy(__DIR__ . '/../../.env.prod', __DIR__ . '/../../.env');
 
-        $buildName = time();
+        $buildName = (string)time();
         $buildDir = self::BUILDS_DIR . $buildName . '/';
         \Safe\mkdir($buildDir);
 
         \Safe\file_put_contents($buildDir . 'BUILD_NAME', $buildName);
 
-        foreach (self::ROUTES as $route => $staticFilename) {
+        foreach ($this->routesToStaticFilesMapping as $route => $staticFilename) {
             $response = $this->webClient->request('GET', $route);
 
-            $content = $this->copyAssets($buildDir, $response->getBody()->getContents());
+            $content = $this->walkThroughLinks($buildDir, $response->getBody()->getContents());
 
             \Safe\file_put_contents($buildDir . $staticFilename, $content);
         }
 
         \Safe\file_put_contents(__DIR__ . '/../../.env', $originalEnv);
+
+        return $buildName;
     }
 
-    private function copyAssets(string $buildDir, string $content): string
+    private function walkThroughLinks(string $buildDir, string $content): string
     {
-        $hrefPattern = '@(?>href|src)="(.+?)"@';
+        $linkPattern = '@(?>href|src)="(.+?)"@';
 
-        preg_match_all($hrefPattern, $content, $matches);
+        preg_match_all($linkPattern, $content, $matches);
 
-        foreach ($matches[1] as $url) {
-            if (str_starts_with($url, '/')) {
-                try {
-                    $response = $this->webClient->request('GET', $url);
+        /** @var string[] $fullMatches */
+        $fullMatches = $matches[0];
 
-                    if ($response->getStatusCode() === 200) {
-                        $pathParts = explode('/', ltrim($url, '/'));
+        /** @var string[] $links */
+        $links = $matches[1];
 
-                        array_pop($pathParts);
+        foreach ($links as $i => $link) {
+            $isInMapping = array_key_exists($link, $this->routesToStaticFilesMapping);
+            if ($isInMapping) {
+                $replacedLink = str_replace($link, $this->routesToStaticFilesMapping[$link], $fullMatches[$i]);
+                $content = str_replace($fullMatches[$i], $replacedLink, $content);
+                continue;
+            }
 
-                        $this->filesystemService->makeDirRecursive($buildDir, join('/', $pathParts));
+            $isExternal = str_starts_with($link, '/') === false;
+            if ($isExternal) {
+                continue;
+            }
 
-                        \Safe\file_put_contents(
-                            $buildDir . ltrim($url, '/'),
-                            $response->getBody()->getContents()
-                        );
-                    }
-                } catch (GuzzleException $e) {
-                }
+            $isFileAsset = \Safe\preg_match('@.+\..{2,4}$@', $link) === 1;
+            if ($isFileAsset) {
+                $this->downloadAsset($link, $buildDir);
             }
         }
 
         return $content;
+    }
+
+    private function downloadAsset(string $url, string $buildDir): void
+    {
+        try {
+            $response = $this->webClient->request('GET', $url);
+
+            if ($response->getStatusCode() === 200) {
+                $pathParts = explode('/', ltrim($url, '/'));
+
+                array_pop($pathParts);
+
+                $this->filesystemService->makeDirRecursive($buildDir, join('/', $pathParts));
+
+                \Safe\file_put_contents(
+                    $buildDir . ltrim($url, '/'),
+                    $response->getBody()->getContents()
+                );
+            }
+        } catch (GuzzleException $e) {
+        }
     }
 }

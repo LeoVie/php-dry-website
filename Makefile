@@ -129,7 +129,14 @@ start:
 
 .PHONY: build_static_site
 build_static_site:
-	npm install
+	# npm install
 	npm run build
 	chmod +x ./scripts/build-static-site.sh
 	./scripts/build-static-site.sh
+
+.PHONY: convert_news_articles
+convert_news_articles:
+	cd news_articles && for f in *.md; do \
+		docker run --rm -v "$(shell pwd)/news_articles:/data" -v$(shell pwd)/pandoc:/custom_pandoc --user $(shell id -u):$(shell id -g) pandoc/latex:2.18 "$$f" -o "rendered/$${f%.txt}_metadata.yaml" --data-dir=/custom_pandoc --template=metadata_template.yaml --to=plain; \
+		docker run --rm -v "$(shell pwd)/news_articles:/data" --user $(shell id -u):$(shell id -g) pandoc/latex:2.18 "$$f" -o "rendered/$${f%.txt}.html"; \
+	done && cd -

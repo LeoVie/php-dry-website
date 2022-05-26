@@ -18,6 +18,10 @@ class CurrentVersionNumberService
 
     public function getFromPackagist(): string
     {
+        if ($_ENV['APP_ENV'] === 'dev') {
+            return '0.0.0';
+        }
+
         $response = $this->packagistClient->request('GET', self::PACKAGIST_API_ENDPOINT);
 
         /** @var array{'packages': array{'leovie/php-dry': array{0: array{'version': string}}}} $responseData */
