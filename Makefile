@@ -55,14 +55,14 @@ install:
 ifndef env
 	$(error env is not set)
 endif
-	@if [ $(env) = "dev" ]; then \
-  		make composer command="install"; \
-  		npm install; \
-  		npm run dev; \
-	else \
+	@if [ $(env) = "prod" ]; then \
 		make composer command="install --no-dev"; \
   		npm install; \
 		npm run build; \
+	else \
+		make composer command="install"; \
+		npm install; \
+		npm run dev; \
 	fi
 
 .PHONY: setup_env
