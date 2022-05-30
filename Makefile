@@ -4,7 +4,7 @@ php_version=8.0.18
 setup_dev_environment:
 	make setup_env env=dev
 	make setup_ci_images php_version=$(php_version)
-	make install
+	make install env=dev
 
 .PHONY: setup_test_environment
 setup_test_environment:
@@ -13,7 +13,7 @@ ifndef php_version
 endif
 	make setup_env env=test
 	make setup_ci_images php_version=$(php_version)
-	make install
+	make install env=test
 
 .PHONY: setup_prod_environment
 setup_prod_environment:
@@ -22,7 +22,7 @@ ifndef php_version
 endif
 	make setup_env env=prod
 	make setup_ci_images php_version=$(php_version)
-	make install
+	make install env=prod
 
 .PHONY: setup_ci_images
 setup_ci_images:
@@ -52,7 +52,18 @@ endif
 
 .PHONY: install
 install:
-	make composer command="install"
+ifndef env
+	$(error env is not set)
+endif
+	@if [ $(env) = "prod" ]; then \
+		make composer command="install --no-dev"; \
+  		npm install; \
+		npm run build; \
+	else \
+		make composer command="install"; \
+		npm install; \
+		npm run dev; \
+	fi
 
 .PHONY: setup_env
 setup_env:
@@ -129,8 +140,7 @@ start:
 
 .PHONY: build_static_site
 build_static_site:
-	npm install
-	npm run build
+	make setup_prod_environment
 	chmod +x ./scripts/build-static-site.sh
 	./scripts/build-static-site.sh
 

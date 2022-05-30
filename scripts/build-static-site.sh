@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp -r builds/$(docker-compose exec -T -u www-data app ./bin/console app:build-static-site) builds/latest
+cp -r builds/$(docker-compose exec -T -u www-data app ./bin/console app:build-static-site)/* builds/latest
 
 RETURN_CODE=$?
 

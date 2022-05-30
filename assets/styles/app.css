@@ -1,5 +1,9 @@
-body {
-    background-color: lightgray;
+.php-dry-brand-font {
+    font-family: Bahnschrift, sans-serif;
+}
+
+#php-dry-logo {
+    height: 150px;
 }
 
 .queo-logo-letter {
@@ -16,6 +20,14 @@ body {
 
 .buffer-row {
     margin-top: 1em;
+}
+
+.buffer-row-2 {
+    margin-top: 2em;
+}
+
+.buffer-row-3 {
+    margin-top: 3em;
 }
 
 #header-logo {
