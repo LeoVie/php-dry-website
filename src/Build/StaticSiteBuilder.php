@@ -29,9 +29,6 @@ class StaticSiteBuilder
      */
     public function build(): string
     {
-        $originalEnv = \Safe\file_get_contents(__DIR__ . '/../../.env');
-        \Safe\copy(__DIR__ . '/../../.env.prod', __DIR__ . '/../../.env');
-
         $buildName = (string)time();
         $buildDir = self::BUILDS_DIR . $buildName . '/';
         \Safe\mkdir($buildDir);
@@ -45,8 +42,6 @@ class StaticSiteBuilder
 
             \Safe\file_put_contents($buildDir . $staticFilename, $content);
         }
-
-        \Safe\file_put_contents(__DIR__ . '/../../.env', $originalEnv);
 
         return $buildName;
     }

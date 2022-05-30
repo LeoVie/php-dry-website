@@ -9,12 +9,23 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div class="row buffer-row-3"></div>
     <div class="row justify-content-center">
-        <div class="col-auto text-center">
-            <h1 class="display-1">php-dry</h1>
-            <h2>Semantic Clone Detection for PHP</h2>
+        <div class="col-12 text-center">
+            <h1 class="display-1 php-dry-brand-font">php-dry</h1>
+        </div>
+        <div class="col-12 text-center">
+            <img
+                    id="php-dry-logo"
+                    src="{{ asset('php-dry.svg') }}"
+                    alt="The logo of php-dry: A T-shirt on a clothesline rope."
+            >
+        </div>
+        <div class="col-12 text-center">
+            <h2>Syntactical and semantic clone detection for PHP in PHP</h2>
         </div>
     </div>
+    <div class="row buffer-row-2"></div>
     {{ include('home/partial/buttons_larger_screens.twig') }}
     {{ include('home/partial/buttons_smaller_screens.twig') }}
     <div class="row" id="current-version-number">
