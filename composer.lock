@@ -1503,16 +1503,16 @@
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
-            "version": "v1.0.5",
+            "version": "v1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/proxy-manager-lts.git",
-                "reference": "006aa5d32f887a4db4353b13b5b5095613e0611f"
+                "reference": "8419f0158715b30d4b99a5bd37c6a39671994ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/006aa5d32f887a4db4353b13b5b5095613e0611f",
-                "reference": "006aa5d32f887a4db4353b13b5b5095613e0611f",
+                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/8419f0158715b30d4b99a5bd37c6a39671994ad7",
+                "reference": "8419f0158715b30d4b99a5bd37c6a39671994ad7",
                 "shasum": ""
             },
             "require": {
@@ -1529,7 +1529,7 @@
             },
             "require-dev": {
                 "ext-phar": "*",
-                "symfony/phpunit-bridge": "^5.2|^6.0"
+                "symfony/phpunit-bridge": "^5.4|^6.0"
             },
             "type": "library",
             "extra": {
@@ -1551,7 +1551,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.io/"
+                    "homepage": "https://ocramius.github.io/"
                 },
                 {
                     "name": "Nicolas Grekas",
@@ -1569,7 +1569,7 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/proxy-manager-lts/issues",
-                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.5"
+                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.12"
             },
             "funding": [
                 {
@@ -1581,7 +1581,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-22T16:11:15+00:00"
+            "time": "2022-05-05T09:31:05+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1938,12 +1938,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Laminas\\Code\\": "src/"
-                },
                 "files": [
                     "polyfill/ReflectionEnumPolyfill.php"
-                ]
+                ],
+                "psr-4": {
+                    "Laminas\\Code\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3782,16 +3782,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v6.0.3",
+            "version": "v6.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "bf53dbf6e8f3eec14f44c53fa4c3b4905ab19ee4"
+                "reference": "eb0945f285285861a6a6b95b8e7f5881680c0d75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/bf53dbf6e8f3eec14f44c53fa4c3b4905ab19ee4",
-                "reference": "bf53dbf6e8f3eec14f44c53fa4c3b4905ab19ee4",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/eb0945f285285861a6a6b95b8e7f5881680c0d75",
+                "reference": "eb0945f285285861a6a6b95b8e7f5881680c0d75",
                 "shasum": ""
             },
             "require": {
@@ -3850,7 +3850,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dependency-injection/tree/v6.0.3"
+                "source": "https://github.com/symfony/dependency-injection/tree/v6.0.9"
             },
             "funding": [
                 {
@@ -3866,7 +3866,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-26T17:23:29+00:00"
+            "time": "2022-05-27T06:40:13+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4490,16 +4490,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v6.0.3",
+            "version": "v6.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "6ae49c4fda17322171a2b8dc5f70bc6edbc498e1"
+                "reference": "bf7b9d2ee692b6df2a41017d6023a2fe732d240c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/6ae49c4fda17322171a2b8dc5f70bc6edbc498e1",
-                "reference": "6ae49c4fda17322171a2b8dc5f70bc6edbc498e1",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/bf7b9d2ee692b6df2a41017d6023a2fe732d240c",
+                "reference": "bf7b9d2ee692b6df2a41017d6023a2fe732d240c",
                 "shasum": ""
             },
             "require": {
@@ -4533,7 +4533,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v6.0.3"
+                "source": "https://github.com/symfony/filesystem/tree/v6.0.9"
             },
             "funding": [
                 {
@@ -4549,7 +4549,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2022-05-21T13:33:31+00:00"
         },
         {
             "name": "symfony/finder",
@@ -6702,16 +6702,16 @@
         },
         {
             "name": "symfony/proxy-manager-bridge",
-            "version": "v6.0.3",
+            "version": "v6.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/proxy-manager-bridge.git",
-                "reference": "51ba60d4340fd91dd42c9caad76a414a521fbee4"
+                "reference": "aa68a86bc7df5ee9ff39107f122ebf1931d98ff8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/proxy-manager-bridge/zipball/51ba60d4340fd91dd42c9caad76a414a521fbee4",
-                "reference": "51ba60d4340fd91dd42c9caad76a414a521fbee4",
+                "url": "https://api.github.com/repos/symfony/proxy-manager-bridge/zipball/aa68a86bc7df5ee9ff39107f122ebf1931d98ff8",
+                "reference": "aa68a86bc7df5ee9ff39107f122ebf1931d98ff8",
                 "shasum": ""
             },
             "require": {
@@ -6748,7 +6748,7 @@
             "description": "Provides integration for ProxyManager with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/proxy-manager-bridge/tree/v6.0.3"
+                "source": "https://github.com/symfony/proxy-manager-bridge/tree/v6.0.6"
             },
             "funding": [
                 {
@@ -6764,7 +6764,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2022-03-02T12:58:14+00:00"
         },
         {
             "name": "symfony/routing",
