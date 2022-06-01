@@ -1,5 +1,6 @@
 #!/bin/bash
 
+docker-compose exec -T -u root app /bin/sh -c "chmod -R 777 /var/www/var"
 docker-compose exec -T -u www-data app ./bin/console app:build-static-site
 
 RETURN_CODE=$?
