@@ -5,6 +5,9 @@ services:
     build:
       context: ./infrastructure/
       dockerfile: app.dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
     working_dir: /var/www
     volumes:
       - ./:/var/www
@@ -13,6 +16,9 @@ services:
     build:
       context: ./infrastructure/
       dockerfile: web.dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
     working_dir: /var/www
     volumes:
       - ./:/var/www
@@ -23,6 +29,9 @@ services:
     build:
       context: ./infrastructure/
       dockerfile: static_site.dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
     working_dir: /var/www
     volumes:
       - ./builds/latest:/var/www

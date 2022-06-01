@@ -136,11 +136,11 @@ infection:
 
 .PHONY: start
 start:
-	docker-compose up -d
+	UID="$(shell id -u)" GID="$(shell id -g)" docker-compose up -d $(extra_args)
 
 .PHONY: stop
 stop:
-	docker-compose down --remove-orphans
+	UID="$(shell id -u)" GID="$(shell id -g)" docker-compose down --remove-orphans
 
 .PHONY: restart
 restart: stop start
