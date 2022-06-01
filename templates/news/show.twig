@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    {{ include('resource_include/bootstrap_css.twig') }}
+    {{ include('resource_include/bootstrap_js.twig') }}
+    {{ include('resource_include/highlight_css.twig') }}
+    {{ include('resource_include/highlight_js.twig') }}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
+    <title>php-dry - News</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+<script>hljs.highlightAll();</script>
+{{ include('news/partial/header.twig') }}
+<div class="container-fluid">
+    {{ include('news/partial/article.twig', {'article': article}) }}
+</div>
+</body>
+</html>
