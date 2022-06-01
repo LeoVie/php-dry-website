@@ -2,6 +2,7 @@ version: "3"
 services:
   app:
     container_name: php_dry_website_app
+    privileged: true
     build:
       context: ./infrastructure/
       dockerfile: app.dockerfile
@@ -13,6 +14,7 @@ services:
       - ./:/var/www
   web:
     container_name: php_dry_website_web
+    privileged: true
     build:
       context: ./infrastructure/
       dockerfile: web.dockerfile
