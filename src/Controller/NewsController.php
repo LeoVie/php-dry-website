@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Safe\Exceptions\PcreException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\iterator;
 
 class NewsController extends AbstractController
 {
@@ -56,6 +56,10 @@ class NewsController extends AbstractController
         );
     }
 
+    /**
+     * @return array<int, array{path: string, metadata: array{date: string, title: string}, url: string}>
+     * @throws PcreException
+     */
     private function findArticles(): array
     {
         $finder = new Finder();
@@ -75,6 +79,7 @@ class NewsController extends AbstractController
                 $htmlFilePath
             );
 
+            /** @var array{date: string, title: string} $metadata */
             $metadata = Yaml::parseFile($yamlFilePath);
 
             $articles[] = [

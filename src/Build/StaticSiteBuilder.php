@@ -8,6 +8,8 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use LeoVie\PhpFilesystem\Service\FilesystemService;
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\JsonException;
+use Safe\Exceptions\PcreException;
 
 class StaticSiteBuilder
 {
@@ -65,6 +67,11 @@ class StaticSiteBuilder
         return $buildName;
     }
 
+    /**
+     * @param array<string, string> $routesToStaticFilesMapping
+     *
+     * @throws PcreException
+     */
     private function walkThroughLinks(string $buildDir, string $content, array $routesToStaticFilesMapping): string
     {
         $linkPattern = '@(?>href|src)="(.+?)"@';
@@ -119,6 +126,10 @@ class StaticSiteBuilder
         }
     }
 
+    /**
+     * @return array<string, string>
+     * @throws JsonException
+     */
     private function buildMappingFromDynamicRoutes(): array
     {
         $mapping = [];
@@ -127,7 +138,9 @@ class StaticSiteBuilder
                 $response = $this->webClient->request('GET', $dynamicRoute);
 
                 if ($response->getStatusCode() === 200) {
-                    foreach (\Safe\json_decode($response->getBody()->getContents(), true) as $entry) {
+                    /** @var array{array{url: string}} $responseData */
+                    $responseData = \Safe\json_decode($response->getBody()->getContents(), true);
+                    foreach ($responseData as $entry) {
                         $url = $entry['url'];
                         $staticFilename = $url . '.html';
 
