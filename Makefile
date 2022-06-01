@@ -165,4 +165,4 @@ convert_news_articles:
 
 .PHONY: build_docs
 build_docs:
-	docker-compose exec mkdocs bash -c "cd /mkdocs && mkdocs build && chmod -R 777 /builds/latest/documentation"
+	docker-compose exec -T mkdocs bash -c "cd /mkdocs && mkdocs build && chmod -R 777 /builds/latest/documentation"
