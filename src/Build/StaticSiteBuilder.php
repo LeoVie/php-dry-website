@@ -27,10 +27,14 @@ class StaticSiteBuilder
      * @throws FilesystemException
      * @throws GuzzleException
      */
-    public function build(): string
+    public function build(string $buildName): string
     {
-        $buildName = (string)time();
         $buildDir = self::BUILDS_DIR . $buildName . '/';
+
+        if (is_dir($buildDir)) {
+            shell_exec('rm -rf ' . $buildDir);
+        }
+
         \Safe\mkdir($buildDir);
 
         \Safe\file_put_contents($buildDir . 'BUILD_NAME', $buildName);

@@ -138,6 +138,13 @@ infection:
 start:
 	docker-compose up -d
 
+.PHONY: stop
+stop:
+	docker-compose down --remove-orphans
+
+.PHONY: restart
+restart: stop start
+
 .PHONY: build_static_site
 build_static_site:
 	make setup_prod_environment
