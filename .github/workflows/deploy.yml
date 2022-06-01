@@ -15,9 +15,6 @@ jobs:
         run: make convert_news_articles
       - name: Build static site
         run: make build_static_site
-      - name: Deploy website
-        run: |
-          cp -R ${{ github.workspace }}/builds/$(ls ${{ github.workspace }}/builds | sort -r | head -n 1) ${{ github.workspace }}/builds/latest
       - name: Deploy via SFTP
         uses: wangyucode/sftp-upload-action@v1.3.2
         with:
