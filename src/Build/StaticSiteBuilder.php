@@ -13,12 +13,17 @@ class StaticSiteBuilder
 {
     private const BUILDS_DIR = __DIR__ . '/../../builds/';
 
-    /** @param array<string, string> $routesToStaticFilesMapping */
+    /**
+     * @param array<string, string> $staticRoutesMapping
+     * @param array<string> $dynamicRoutes
+     */
     public function __construct(
         private FilesystemService $filesystemService,
         private ClientInterface   $webClient,
         /** @var array<string, string> */
-        private array             $routesToStaticFilesMapping,
+        private array             $staticRoutesMapping,
+        /** @var array<string> */
+        private array             $dynamicRoutes,
     )
     {
     }
@@ -39,10 +44,20 @@ class StaticSiteBuilder
 
         \Safe\file_put_contents($buildDir . 'BUILD_NAME', $buildName);
 
-        foreach ($this->routesToStaticFilesMapping as $route => $staticFilename) {
+        $routesToStaticFilesMapping = array_merge(
+            $this->staticRoutesMapping,
+            $this->buildMappingFromDynamicRoutes()
+        );
+
+        foreach ($routesToStaticFilesMapping as $route => $staticFilename) {
             $response = $this->webClient->request('GET', $route);
 
-            $content = $this->walkThroughLinks($buildDir, $response->getBody()->getContents());
+            $content = $this->walkThroughLinks($buildDir, $response->getBody()->getContents(), $routesToStaticFilesMapping);
+
+            $pathParts = explode('/', ltrim($staticFilename, '/'));
+            array_pop($pathParts);
+
+            $this->filesystemService->makeDirRecursive($buildDir, join('/', $pathParts));
 
             \Safe\file_put_contents($buildDir . $staticFilename, $content);
         }
@@ -50,7 +65,7 @@ class StaticSiteBuilder
         return $buildName;
     }
 
-    private function walkThroughLinks(string $buildDir, string $content): string
+    private function walkThroughLinks(string $buildDir, string $content, array $routesToStaticFilesMapping): string
     {
         $linkPattern = '@(?>href|src)="(.+?)"@';
 
@@ -63,9 +78,9 @@ class StaticSiteBuilder
         $links = $matches[1];
 
         foreach ($links as $i => $link) {
-            $isInMapping = array_key_exists($link, $this->routesToStaticFilesMapping);
+            $isInMapping = array_key_exists($link, $routesToStaticFilesMapping);
             if ($isInMapping) {
-                $replacedLink = str_replace($link, $this->routesToStaticFilesMapping[$link], $fullMatches[$i]);
+                $replacedLink = str_replace($link, $routesToStaticFilesMapping[$link], $fullMatches[$i]);
                 $content = str_replace($fullMatches[$i], $replacedLink, $content);
                 continue;
             }
@@ -91,7 +106,6 @@ class StaticSiteBuilder
 
             if ($response->getStatusCode() === 200) {
                 $pathParts = explode('/', ltrim($url, '/'));
-
                 array_pop($pathParts);
 
                 $this->filesystemService->makeDirRecursive($buildDir, join('/', $pathParts));
@@ -103,5 +117,27 @@ class StaticSiteBuilder
             }
         } catch (GuzzleException $e) {
         }
+    }
+
+    private function buildMappingFromDynamicRoutes(): array
+    {
+        $mapping = [];
+        foreach ($this->dynamicRoutes as $dynamicRoute) {
+            try {
+                $response = $this->webClient->request('GET', $dynamicRoute);
+
+                if ($response->getStatusCode() === 200) {
+                    foreach (\Safe\json_decode($response->getBody()->getContents(), true) as $entry) {
+                        $url = $entry['url'];
+                        $staticFilename = $url . '.html';
+
+                        $mapping[$url] = $staticFilename;
+                    }
+                }
+            } catch (GuzzleException $e) {
+            }
+        }
+
+        return $mapping;
     }
 }

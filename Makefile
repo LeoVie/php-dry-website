@@ -151,6 +151,11 @@ build_static_site:
 	chmod +x ./scripts/build-static-site.sh
 	./scripts/build-static-site.sh
 
+.PHONY: build_static_site_dev
+build_static_site_dev:
+	chmod +x ./scripts/build-static-site.sh
+	./scripts/build-static-site.sh
+
 .PHONY: convert_news_articles
 convert_news_articles:
 	cd news_articles && for f in *.md; do \

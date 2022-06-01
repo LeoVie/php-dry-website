@@ -28,6 +28,8 @@ services:
 
     App\Build\StaticSiteBuilder:
         arguments:
-            $routesToStaticFilesMapping:
-              /: 'index.html'
-              /news: 'news.html'
+            $staticRoutesMapping:
+              /: '/index.html'
+              /news: '/news.html'
+            $dynamicRoutes:
+                - 'news.json'
