@@ -1,3 +1,6 @@
 FROM php:8.1.2-fpm
 
-RUN usermod -u 1000 www-data
+ARG UID=1000
+ARG GID=1000
+
+RUN usermod -u $UID www-data
