@@ -1,0 +1,8 @@
+site_name: php-dry
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Configuration: configuration.md
+theme: readthedocs
+repo_url: https://github.com/leovie/php-dry/
+site_dir: /builds/latest/documentation
