@@ -162,3 +162,7 @@ convert_news_articles:
 		docker run --rm -v "$(shell pwd)/news_articles:/data" -v$(shell pwd)/pandoc:/custom_pandoc --user $(shell id -u):$(shell id -g) pandoc/latex:2.18 "$$f" -o "rendered/$${f%.txt}_metadata.yaml" --data-dir=/custom_pandoc --template=metadata_template.yaml --to=plain; \
 		docker run --rm -v "$(shell pwd)/news_articles:/data" --user $(shell id -u):$(shell id -g) pandoc/latex:2.18 "$$f" -o "rendered/$${f%.txt}.html"; \
 	done && cd -
+
+.PHONY: build_docs
+build_docs:
+	docker-compose exec mkdocs bash -c "cd /mkdocs && mkdocs build && chmod -R 777 /builds/latest/documentation"

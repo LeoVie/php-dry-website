@@ -15,7 +15,9 @@ jobs:
         run: make convert_news_articles
       - name: Build static site
         run: make build_static_site
-      - name: Deploy via SFTP
+      - name: Build docs
+        run: make build_docs
+      - name: Deploy static site
         uses: wangyucode/sftp-upload-action@v1.3.2
         with:
           host: ${{ secrets.SSH_HOST }}
