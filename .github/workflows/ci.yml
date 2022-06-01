@@ -2,6 +2,7 @@ name: CI Pipeline
 on: [ push ]
 jobs:
   Test:
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     name: CI on ubuntu-latest with PHP 8.1
     steps:
@@ -28,6 +29,5 @@ jobs:
           make infection
   Deploy:
     if: github.ref == 'refs/heads/main'
-    needs: Test
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
