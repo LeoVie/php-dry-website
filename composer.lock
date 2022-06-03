@@ -1983,20 +1983,19 @@
         },
         {
             "name": "leovie/php-filesystem",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LeoVie/php-filesystem.git",
-                "reference": "a244f5a08520768ec98d6a802d73037a6043ce2a"
+                "reference": "f8f90762c1e9f4202916b17ac2b73e90a4259226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LeoVie/php-filesystem/zipball/a244f5a08520768ec98d6a802d73037a6043ce2a",
-                "reference": "a244f5a08520768ec98d6a802d73037a6043ce2a",
+                "url": "https://api.github.com/repos/LeoVie/php-filesystem/zipball/f8f90762c1e9f4202916b17ac2b73e90a4259226",
+                "reference": "f8f90762c1e9f4202916b17ac2b73e90a4259226",
                 "shasum": ""
             },
             "require": {
-                "roave/security-advisories": "dev-latest",
                 "symfony/config": "^6.0",
                 "symfony/dependency-injection": "^6.0",
                 "symfony/http-kernel": "^6.0",
@@ -2007,6 +2006,7 @@
                 "infection/infection": "^0.26",
                 "phpunit/phpunit": "^9.5",
                 "psalm/plugin-symfony": "^3.0",
+                "roave/security-advisories": "dev-latest",
                 "symfony/phpunit-bridge": "^6.0",
                 "vimeo/psalm": "^4.10"
             },
@@ -2029,9 +2029,9 @@
             "description": "Filesystem functions.",
             "support": {
                 "issues": "https://github.com/LeoVie/php-filesystem/issues",
-                "source": "https://github.com/LeoVie/php-filesystem/tree/v2.0.0"
+                "source": "https://github.com/LeoVie/php-filesystem/tree/v2.0.1"
             },
-            "time": "2022-05-21T17:50:53+00:00"
+            "time": "2022-05-25T14:55:05+00:00"
         },
         {
             "name": "monolog/monolog",
