@@ -51,8 +51,8 @@ jobs:
         run: make build_static_site
       - name: Build docs
         run: make build_docs
-      - name: Run tests
-        run: npm run cypress:run
+      - name: Run cypress tests
+        uses: cypress-io/github-action@v2
   Deploy:
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
