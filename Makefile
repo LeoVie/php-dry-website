@@ -134,6 +134,10 @@ endif
 infection:
 	docker run -v ${PWD}:/app --rm php-dry-website/infection:latest
 
+.PHONY: cypress
+cypress:
+	npm run cypress:run
+
 .PHONY: start
 start:
 	UID="$(shell id -u)" GID="$(shell id -g)" docker-compose up -d $(extra_args)

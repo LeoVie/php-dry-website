@@ -18,7 +18,7 @@ class CurrentVersionNumberService
 
     public function getFromPackagist(): string
     {
-        if ($_ENV['APP_ENV'] === 'dev') {
+        if ($_ENV['APP_ENV'] !== 'prod') {
             return '0.0.0';
         }
 
