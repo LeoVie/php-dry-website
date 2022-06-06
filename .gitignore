@@ -32,3 +32,6 @@ builds/*
 /build/coverage/
 /build/logs/*
 .phpunit.result.cache
+
+blog_articles/rendered/*
+!blog_articles/rendered/.gitkeep
