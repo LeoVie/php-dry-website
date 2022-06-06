@@ -1,10 +1,10 @@
 name: CI Pipeline
 on: [ push ]
 jobs:
-  Test:
+  UnitTest:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
-    name: CI on ubuntu-latest with PHP 8.1
+    name: Unit tests on ubuntu-latest with PHP 8.1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -27,6 +27,32 @@ jobs:
       - name: "Mutation Testing"
         run: |
           make infection
+  CypressTest:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    name: Cypress tests on ubuntu-latest with PHP 8.1
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: "Check out repository code"
+        uses: actions/checkout@v3
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: "Setup environment"
+        run: |
+          make setup_test_environment php_version=8.1
+      - name: Start application
+        run: make start
+      - name: Convert blog articles
+        run: make convert_blog_articles
+      - name: Build static site
+        run: make build_static_site
+      - name: Build docs
+        run: make build_docs
+      - name: Run tests
+        run: npm run cypress:run
   Deploy:
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
