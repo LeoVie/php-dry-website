@@ -24,12 +24,12 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Controller\BlogController:
         arguments:
-            $renderedNewsArticlesPath: '%kernel.project_dir%/blog_articles/rendered'
+            $renderedBlogArticlesPath: '%kernel.project_dir%/blog_articles/rendered'
 
     App\Build\StaticSiteBuilder:
         arguments:
             $staticRoutesMapping:
               /: '/index.html'
-              /news: '/news.html'
+              /blog: '/blog.html'
             $dynamicRoutes:
-                - 'news.json'
+                - 'blog.json'

@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class BlogController extends AbstractController
 {
-    public function __construct(private string $renderedNewsArticlesPath)
+    public function __construct(private string $renderedBlogArticlesPath)
     {
     }
 
@@ -64,7 +64,7 @@ class BlogController extends AbstractController
     {
         $finder = new Finder();
         $articleFiles = $finder
-            ->in($this->renderedNewsArticlesPath)
+            ->in($this->renderedBlogArticlesPath)
             ->files()
             ->name('*.html')
             ->sortByName();
