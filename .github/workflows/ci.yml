@@ -52,7 +52,7 @@ jobs:
       - name: Build docs
         run: make build_docs
       - name: Run cypress tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
   Deploy:
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
