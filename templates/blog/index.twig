@@ -11,9 +11,11 @@
 </head>
 <body>
 <script>hljs.highlightAll();</script>
-{{ include('news/partial/header.twig') }}
+{{ include('blog/partial/header.twig') }}
 <div class="container-fluid">
-    {{ include('news/partial/article.twig', {'article': article}) }}
+    {% for article in articles %}
+        {{ include('blog/partial/article.twig', {'article': article}) }}
+    {% endfor %}
 </div>
 </body>
 </html>

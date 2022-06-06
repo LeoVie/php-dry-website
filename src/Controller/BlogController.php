@@ -12,26 +12,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 
-class NewsController extends AbstractController
+class BlogController extends AbstractController
 {
-    public function __construct(private string $renderedNewsArticlesPath)
+    public function __construct(private string $renderedBlogArticlesPath)
     {
     }
 
-    /** @Route("/news", name="news_index") */
+    /** @Route("/blog", name="blog_index") */
     public function indexAction(): Response
     {
         $articles = $this->findArticles();
 
         return $this->render(
-            'news/index.twig',
+            'blog/index.twig',
             [
                 'articles' => $articles
             ]
         );
     }
 
-    /** @Route("/news.json", name="news_index_json") */
+    /** @Route("/blog.json", name="blog_index_json") */
     public function indexJsonAction(): Response
     {
         $articles = $this->findArticles();
@@ -39,7 +39,7 @@ class NewsController extends AbstractController
         return new JsonResponse($articles);
     }
 
-    /** @Route("/news/{id}", name="news_show") */
+    /** @Route("/blog/{id}", name="blog_show") */
     public function showAction(int $id): Response
     {
         $articles = $this->findArticles();
@@ -49,7 +49,7 @@ class NewsController extends AbstractController
         }
 
         return $this->render(
-            'news/show.twig',
+            'blog/show.twig',
             [
                 'article' => $articles[$id]
             ]
@@ -64,7 +64,7 @@ class NewsController extends AbstractController
     {
         $finder = new Finder();
         $articleFiles = $finder
-            ->in($this->renderedNewsArticlesPath)
+            ->in($this->renderedBlogArticlesPath)
             ->files()
             ->name('*.html')
             ->sortByName();
@@ -85,7 +85,7 @@ class NewsController extends AbstractController
             $articles[] = [
                 'path' => $htmlFile->getRelativePathname(),
                 'metadata' => $metadata,
-                'url' => $this->generateUrl('news_show', ['id' => $i])
+                'url' => $this->generateUrl('blog_show', ['id' => $i])
             ];
         }
 
