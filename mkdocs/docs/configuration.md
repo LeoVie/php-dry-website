@@ -18,6 +18,11 @@ An example of a valid configuration:
          phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar"
          cachePath="/tmp/php-dry-cache">
 
+    <directories>
+      <directory>/var/www/src/</directory>
+      <directory>/var/www/tests/</directory>
+    </directories>
+  
     <report>
         <cli/>
         <html directory="reports"/>
@@ -25,6 +30,9 @@ An example of a valid configuration:
     </report>
 </php-dry>
 ```
+
+## `directories`
+Which paths should php-dry analyze for clones?
 
 ## `report`
 In which format should php-dry report detected clones?
