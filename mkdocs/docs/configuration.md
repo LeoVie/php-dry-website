@@ -16,8 +16,7 @@ An example of a valid configuration:
          enableConstructNormalization="false"
          phpDocumentorReportPath="/tmp/phpDocumentorReport"
          phpDocumentorExecutablePath="/usr/bin/phpDocumentor.phar"
-         cachePath="/tmp/php-dry-cache"
-         bootstrapScriptPath="/var/www/vendor/autoload.php">
+         cachePath="/tmp/php-dry-cache">
 
     <directories>
       <directory>/var/www/src/</directory>
@@ -149,11 +148,3 @@ Where is phpDocumentor located?
 - Default: `.`
 
 Where should php-dry store its cache?
-
-### `bootstrapScriptPath`
-- Possible values: A valid path to a php file.
-- Default: no default, as this is a required option
-
-Which file should php-dry call for bootstrapping your application?
-In this bootstrap script, all your classes should get loaded.
-Typically, you can pass the `autoload.php` script of Composer here.
